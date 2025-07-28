@@ -9,20 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- 
-    Chosen Palette: Slate & Sky Blue
-    Application Structure Plan: Một trang tổng quan (dashboard) duy nhất hiển thị toàn bộ lộ trình dự án. Cấu trúc này được chọn vì nó trực quan hóa một kế hoạch thành một công cụ theo dõi tiến độ sống động. Người dùng có thể xem tổng quan qua biểu đồ, sau đó đi sâu vào từng giai đoạn. Các thành phần chính bao gồm:
-    1. Header: Tiêu đề và thống kê tổng quan.
-    2. Biểu đồ tiến độ tổng thể (Donut Chart): Cung cấp cái nhìn nhanh về % hoàn thành của toàn dự án.
-    3. Biểu đồ tiến độ theo giai đoạn (Bar Chart): So sánh sự tiến triển giữa các giai đoạn, giúp xác định trọng tâm.
-    4. Danh sách công việc tương tác: Mỗi giai đoạn là một module có thể thu gọn/mở rộng, chứa danh sách công việc. Các checkbox có thể được nhấp để cập nhật trạng thái và tự động tính toán lại tất cả các biểu đồ, tạo ra một trải nghiệm tương tác và tức thì.
-    Luồng người dùng: Xem tổng quan -> Phân tích từng giai đoạn -> Tương tác với công việc chi tiết.
-    Visualization & Content Choices: 
-    - Báo cáo (Kế hoạch dự án) -> Mục tiêu (Hiểu tiến độ tổng thể) -> Trình bày (Biểu đồ Donut) -> Tương tác (Cập nhật khi tick vào công việc) -> Lý do (Dễ hiểu, trực quan hóa tỷ lệ phần trăm) -> Thư viện (Chart.js/Canvas).
-    - Báo cáo (Các giai đoạn) -> Mục tiêu (So sánh tiến độ các giai đoạn) -> Trình bày (Biểu đồ Cột ngang) -> Tương tác (Cập nhật khi tick vào công việc) -> Lý do (Dễ dàng so sánh độ dài và tiến độ giữa các hạng mục) -> Thư viện (Chart.js/Canvas).
-    - Báo cáo (Danh sách công việc) -> Mục tiêu (Tổ chức và tương tác chi tiết) -> Trình bày (Danh sách HTML/CSS có thể thu gọn) -> Tương tác (Checkbox thay đổi trạng thái) -> Lý do (Cung cấp chi tiết, cho phép người dùng thay đổi dữ liệu gốc) -> Phương pháp (HTML/CSS/JS).
-    CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
     <style>
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
@@ -38,7 +24,7 @@
         .bar-chart-container {
             position: relative;
             margin: auto;
-            height: 250px;
+            height: 360px; /* Tăng chiều cao cho nhiều giai đoạn hơn */
             width: 100%;
         }
         .task-checkbox:checked + .task-text {
@@ -104,71 +90,124 @@
                 phases: [
                     {
                         id: 1,
-                        title: "Giai đoạn 1: Xây dựng nền tảng Backend",
-                        goal: "Tạo ra \"bộ não\" của ứng dụng, định nghĩa cách dữ liệu được lưu trữ và cung cấp các API cơ bản.",
+                        title: "Giai đoạn 1: Nền tảng & Xác thực (Đã hoàn thành)",
+                        goal: "Xây dựng cấu trúc, DB, API xác thực và cài đặt cơ bản cho dự án.",
                         tasks: [
                             { text: "Tạo cấu trúc thư mục server và client.", done: true },
                             { text: "Cài đặt Express, Sequelize, mysql2, dotenv, cors.", done: true },
                             { text: "Thiết kế và tạo Database MySQL hoàn chỉnh.", done: true },
                             { text: "Hoàn thành file kết nối server/config/database.js.", done: true },
-                            { text: "Tạo các file model của Sequelize.", done: false },
-                            { text: "Định nghĩa các mối quan hệ (associations) giữa các model.", done: false },
-                            { text: "API đăng ký bằng email & mật khẩu.", done: false },
-                            { text: "API đăng nhập bằng email & mật khẩu (JWT).", done: false },
-                            { text: "API đăng nhập bằng Google.", done: false },
-                            { text: "Middleware bảo vệ route.", done: false },
-                            { text: "API lấy danh sách truyện (phân trang).", done: false },
-                            { text: "API lấy thông tin chi tiết một truyện.", done: false },
-                            { text: "API lấy danh sách chương của một truyện.", done: false },
-                            { text: "API lấy nội dung một chương.", done: false },
-                            { text: "API tìm kiếm truyện.", done: false }
+                            { text: "Tạo các file model của Sequelize.", done: true },
+                            { text: "Định nghĩa các mối quan hệ (associations) giữa các model.", done: true },
+                            { text: "Backend: API đăng ký bằng email & mật khẩu.", done: true },
+                            { text: "Backend: API đăng nhập bằng email & mật khẩu (JWT).", done: true },
+                            { text: "Backend: API đăng nhập bằng Google.", done: true },
+                            { text: "Frontend: Cài đặt react-router-dom, axios, zustand.", done: true },
+                            { text: "Frontend: Cấu hình proxy trong vite.config.js.", done: true },
+                            { text: "Frontend: Quản lý trạng thái đăng nhập (authStore).", done: true }
                         ]
                     },
                     {
                         id: 2,
-                        title: "Giai đoạn 2: Xây dựng giao diện người đọc",
-                        goal: "Tạo ra các trang chính mà người dùng sẽ thấy và tương tác để đọc truyện.",
+                        title: "Giai đoạn 2: Mở rộng Database & Xử lý lỗi Backend",
+                        goal: "Hoàn thiện cấu trúc dữ liệu và xây dựng nền tảng xử lý lỗi.",
                         tasks: [
-                            { text: "Cài đặt react-router-dom, axios.", done: false },
-                            { text: "Cấu hình proxy trong vite.config.js.", done: false },
-                            { text: "Thiết lập cấu trúc thư mục frontend.", done: false },
-                            { text: "Xây dựng Trang chủ (Homepage).", done: false },
-                            { text: "Xây dựng Trang chi tiết truyện.", done: false },
-                            { text: "Xây dựng Trang đọc truyện.", done: false },
-                            { text: "Xây dựng Trang kết quả tìm kiếm.", done: false },
-                            { text: "Tạo các hàm gọi API trong services.", done: false },
-                            { text: "Sử dụng useEffect và useState để fetch dữ liệu.", done: false }
+                            { text: "DB: Thêm cột view_count, publication_status vào bảng stories.", done: false },
+                            { text: "DB: Tạo bảng user_follows.", done: false },
+                            { text: "DB: Tạo bảng profile_comments.", done: false },
+                            { text: "DB: Tạo bảng notifications.", done: false },
+                            { text: "Model: Cập nhật các model tương ứng (Story, UserFollow, etc.).", done: false },
+                            { text: "Model: Cập nhật association.js với các mối quan hệ mới.", done: false },
+                            { text: "Backend: Xây dựng middleware xử lý lỗi tập trung.", done: false },
+                            { text: "Backend: Định nghĩa format JSON response chuẩn cho lỗi.", done: false }
                         ]
                     },
                     {
                         id: 3,
-                        title: "Giai đoạn 3: Tích hợp tính năng người dùng & cộng đồng",
-                        goal: "Hoàn thiện các tính năng yêu cầu người dùng phải đăng nhập.",
+                        title: "Giai đoạn 3: API Backend - Chức năng cơ bản & Khám phá",
+                        goal: "Xây dựng các API CRUD chính cho việc đọc và tìm kiếm truyện.",
                         tasks: [
-                            { text: "Backend: API thêm/xóa truyện khỏi tủ truyện.", done: false },
-                            { text: "Backend: API đăng và trả lời bình luận.", done: false },
-                            { text: "Backend: API gửi đánh giá/xếp hạng.", done: false },
-                            { text: "Backend: API lấy thông tin cá nhân người dùng.", done: false },
-                            { text: "Frontend: Component Đăng nhập/Đăng ký.", done: false },
-                            { text: "Frontend: Quản lý trạng thái đăng nhập (Context API).", done: false },
-                            { text: "Frontend: Chức năng 'Lưu vào tủ truyện'.", done: false },
-                            { text: "Frontend: Xây dựng khu vực bình luận.", done: false },
-                            { text: "Frontend: Xây dựng trang cá nhân.", done: false }
+                            { text: "API lấy danh sách truyện (có phân trang, lọc, sắp xếp).", done: false },
+                            { text: "API lấy thông tin chi tiết một truyện.", done: false },
+                            { text: "API lấy danh sách chương của một truyện.", done: false },
+                            { text: "API lấy nội dung một chương.", done: false },
+                            { text: "API tìm kiếm truyện.", done: false },
+                            { text: "API tăng lượt xem cho truyện.", done: false },
+                            { text: "API cho Bảng xếp hạng (top view, top rating...).", done: false }
                         ]
                     },
                     {
                         id: 4,
-                        title: "Giai đoạn 4: Hoàn thiện hệ thống quản lý nội dung",
-                        goal: "Xây dựng chức năng cốt lõi và đặc biệt nhất của dự án.",
+                        title: "Giai đoạn 4: API Backend - Tương tác & Cộng đồng",
+                        goal: "Xây dựng các API cho các tính năng xã hội.",
                         tasks: [
-                            { text: "Thiết lập Google Service Account.", done: false },
-                            { text: "Viết googleService.js ở backend.", done: false },
-                            { text: "Backend: API đăng chương mới (tạo Doc).", done: false },
-                            { text: "Backend: API lấy nội dung chương để sửa.", done: false },
-                            { text: "Backend: API cập nhật chương (ghi đè Doc).", done: false },
-                            { text: "Frontend: Tạo trang quản lý/đăng truyện.", done: false },
-                            { text: "Frontend: Tích hợp Rich Text Editor.", done: false },
-                            { text: "Frontend: Xây dựng form đăng/sửa và kết nối API.", done: false }
+                            { text: "API thêm/xóa truyện khỏi tủ truyện (Bookmark).", done: false },
+                            { text: "API gửi đánh giá/xếp hạng cho truyện.", done: false },
+                            { text: "API đăng và trả lời bình luận trong chương.", done: false },
+                            { text: "API theo dõi/bỏ theo dõi người dùng.", done: false },
+                            { text: "API đăng bình luận trên trang cá nhân.", done: false },
+                            { text: "API lấy dữ liệu trang cá nhân (info, stats, followers...).", done: false }
+                        ]
+                    },
+                    {
+                        id: 5,
+                        title: "Giai đoạn 5: API Backend - Quản lý Nội dung (CMS)",
+                        goal: "Xây dựng API cho tác giả và quản trị viên.",
+                        tasks: [
+                            { text: "Thiết lập Google Service Account và googleService.js.", done: false },
+                            { text: "API đăng chương mới (tự động tạo Google Doc).", done: false },
+                            { text: "API cập nhật chương (ghi đè nội dung Google Doc).", done: false },
+                            { text: "API xử lý upload ảnh bìa lên Cloudinary.", done: false },
+                            { text: "API lấy danh sách truyện chờ duyệt cho Admin.", done: false },
+                            { text: "API duyệt/từ chối truyện và nâng cấp role.", done: false },
+                            { text: "API Bảo mật: Hoàn thiện middleware kiểm tra vai trò.", done: false }
+                        ]
+                    },
+                    {
+                        id: 6,
+                        title: "Giai đoạn 6: Giao diện Frontend - Nền tảng & Trang chính",
+                        goal: "Xây dựng các giao diện cốt lõi và xử lý lỗi phía client.",
+                        tasks: [
+                            { text: "Tạo các hàm gọi API trong services/hooks.", done: false },
+                            { text: "Xây dựng Trang chủ (Homepage).", done: false },
+                            { text: "Xây dựng Trang chi tiết truyện.", done: false },
+                            { text: "Xây dựng Trang đọc truyện.", done: false },
+                            { text: "Xây dựng Trang kết quả tìm kiếm, lọc, sắp xếp.", done: false },
+                            { text: "Xây dựng Trang Bảng xếp hạng.", done: false },
+                            { text: "Tạo component trang 404 Not Found và trang báo lỗi chung.", done: false },
+                            { text: "Hiển thị thông báo lỗi từ API cho người dùng một cách thân thiện.", done: false }
+                        ]
+                    },
+                    {
+                        id: 7,
+                        title: "Giai đoạn 7: Giao diện Frontend - Tính năng người dùng",
+                        goal: "Tích hợp các tính năng tương tác vào giao diện.",
+                        tasks: [
+                            { text: "Tích hợp chức năng 'Lưu vào tủ truyện' (Bookmark).", done: false },
+                            { text: "Xây dựng khu vực đánh giá (hiển thị và gửi).", done: false },
+                            { text: "Xây dựng khu vực bình luận trong chương (hiển thị, gửi, trả lời).", done: false },
+                            { text: "Xây dựng Trang cá nhân hoàn chỉnh.", done: false }
+                        ]
+                    },
+                    {
+                        id: 8,
+                        title: "Giai đoạn 8: Giao diện Frontend - Quản lý & Tác giả",
+                        goal: "Xây dựng các trang quản lý cho tác giả và admin.",
+                        tasks: [
+                            { text: "Tạo trang quản lý/đăng truyện cho tác giả.", done: false },
+                            { text: "Tích hợp Rich Text Editor (Tiptap).", done: false },
+                            { text: "Xây dựng form đăng/sửa truyện (kết nối API, upload Cloudinary).", done: false },
+                            { text: "Xây dựng trang Dashboard cho Admin (duyệt truyện).", done: false }
+                        ]
+                    },
+                    {
+                        id: 9,
+                        title: "Giai đoạn 9: Hoàn thiện & Tương lai",
+                        goal: "Các tính năng cuối cùng và các hạng mục nâng cao.",
+                        tasks: [
+                            { text: "Backend & Frontend: Chức năng Quên mật khẩu.", done: false },
+                            { text: "Backend & Frontend: Hệ thống thông báo chương mới.", done: false },
+                            { text: "Three.js: Tạo trang thử nghiệm để dựng giá sách 3D.", done: false }
                         ]
                     }
                 ]
@@ -209,8 +248,7 @@
                     
                     const completedTasks = phase.tasks.filter(t => t.done).length;
                     const totalTasks = phase.tasks.length;
-                    const percentage = totalTasks > 0 ? Math.round((completedTasks/totalTasks) * 100) : 0;
-
+                    
                     phaseElement.innerHTML = `
                         <div class="phase-header p-4 border-b border-slate-200 flex justify-between items-center">
                             <div>
@@ -238,7 +276,6 @@
                     phasesContainer.appendChild(phaseElement);
                 });
                 
-                // Add event listeners for collapsibles
                 document.querySelectorAll('.phase-header').forEach(header => {
                     header.addEventListener('click', () => {
                         const taskList = header.nextElementSibling;
@@ -248,7 +285,6 @@
                     });
                 });
 
-                // Add event listeners for checkboxes
                 document.querySelectorAll('.task-checkbox').forEach(checkbox => {
                     checkbox.addEventListener('change', (e) => {
                         const phaseIndex = e.target.dataset.phaseIndex;
@@ -262,24 +298,20 @@
             function updateDashboard() {
                 const progress = calculateProgress();
 
-                // Update text summary
                 document.getElementById('total-percentage').textContent = `${Math.round(progress.overallPercentage)}%`;
                 document.getElementById('total-tasks-summary').textContent = `${progress.completedTasks}/${progress.totalTasks} công việc hoàn thành`;
 
-                // Update Overall Chart
                 if (overallProgressChart) {
                     overallProgressChart.data.datasets[0].data = [progress.completedTasks, progress.totalTasks - progress.completedTasks];
                     overallProgressChart.update();
                 }
 
-                // Update Phase Chart
                 if (phaseProgressChart) {
-                    phaseProgressChart.data.labels = progress.phaseProgress.map(p => p.name);
+                    phaseProgressChart.data.labels = projectData.phases.map(p => p.name);
                     phaseProgressChart.data.datasets[0].data = progress.phaseProgress.map(p => p.percentage);
                     phaseProgressChart.update();
                 }
                 
-                // Re-render phase progress text (could be more efficient, but fine for this scale)
                 document.querySelectorAll('.phase-header').forEach((header, index) => {
                     const phase = projectData.phases[index];
                     const completedTasks = phase.tasks.filter(t => t.done).length;
@@ -291,7 +323,6 @@
             function createCharts() {
                 const progress = calculateProgress();
                 
-                // Overall Progress Chart (Donut)
                 const overallCtx = document.getElementById('overallProgressChart').getContext('2d');
                 overallProgressChart = new Chart(overallCtx, {
                     type: 'doughnut',
@@ -299,7 +330,7 @@
                         labels: ['Hoàn thành', 'Chưa làm'],
                         datasets: [{
                             data: [progress.completedTasks, progress.totalTasks - progress.completedTasks],
-                            backgroundColor: ['#0284c7', '#e0f2fe'], // sky-600, sky-100
+                            backgroundColor: ['#0284c7', '#e0f2fe'],
                             borderColor: '#ffffff',
                             borderWidth: 4,
                             hoverOffset: 8
@@ -309,28 +340,20 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         cutout: '70%',
-                        plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                enabled: true
-                            }
-                        }
+                        plugins: { legend: { display: false }, tooltip: { enabled: true } }
                     }
                 });
 
-                // Phase Progress Chart (Horizontal Bar)
                 const phaseCtx = document.getElementById('phaseProgressChart').getContext('2d');
                 phaseProgressChart = new Chart(phaseCtx, {
                     type: 'bar',
                     data: {
-                        labels: progress.phaseProgress.map(p => p.name),
+                        labels: projectData.phases.map(p => p.name),
                         datasets: [{
                             label: '% Hoàn thành',
                             data: progress.phaseProgress.map(p => p.percentage),
-                            backgroundColor: '#38bdf8', // sky-400
-                            borderColor: '#0284c7', // sky-600
+                            backgroundColor: '#38bdf8',
+                            borderColor: '#0284c7',
                             borderWidth: 1,
                             borderRadius: 4
                         }]
@@ -343,39 +366,19 @@
                             x: {
                                 beginAtZero: true,
                                 max: 100,
-                                grid: {
-                                    display: true,
-                                    color: '#e2e8f0' // slate-200
-                                },
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + "%"
-                                    }
-                                }
+                                grid: { display: true, color: '#e2e8f0' },
+                                ticks: { callback: (value) => value + "%" }
                             },
-                            y: {
-                                grid: {
-                                    display: false
-                                }
-                            }
+                            y: { grid: { display: false } }
                         },
                         plugins: {
-                            legend: {
-                                display: false
-                            },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return ` ${context.dataset.label}: ${Math.round(context.raw)}%`;
-                                    }
-                                }
-                            }
+                            legend: { display: false },
+                            tooltip: { callbacks: { label: (context) => ` ${context.dataset.label}: ${Math.round(context.raw)}%` } }
                         }
                     }
                 });
             }
             
-            // Initial render
             renderPhases();
             createCharts();
             updateDashboard();

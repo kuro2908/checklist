@@ -116,10 +116,10 @@
                             { text: "DB: Tạo bảng user_follows.", done: false },
                             { text: "DB: Tạo bảng profile_comments.", done: false },
                             { text: "DB: Tạo bảng notifications.", done: false },
-                            { text: "Model: Cập nhật các model tương ứng (Story, UserFollow, etc.).", done: false },
+                            { text: "DB: Tạo bảng reading_history để lưu lịch sử đọc.", done: false },
+                            { text: "Model: Cập nhật các model tương ứng (Story, UserFollow, ReadingHistory...).", done: false },
                             { text: "Model: Cập nhật association.js với các mối quan hệ mới.", done: false },
-                            { text: "Backend: Xây dựng middleware xử lý lỗi tập trung.", done: false },
-                            { text: "Backend: Định nghĩa format JSON response chuẩn cho lỗi.", done: false }
+                            { text: "Backend: Xây dựng middleware xử lý lỗi tập trung.", done: false }
                         ]
                     },
                     {
@@ -142,6 +142,8 @@
                         goal: "Xây dựng các API cho các tính năng xã hội.",
                         tasks: [
                             { text: "API thêm/xóa truyện khỏi tủ truyện (Bookmark).", done: false },
+                            { text: "API ghi lại lịch sử đọc (UPSERT vào reading_history).", done: false },
+                            { text: "API lấy danh sách lịch sử đọc của người dùng.", done: false },
                             { text: "API gửi đánh giá/xếp hạng cho truyện.", done: false },
                             { text: "API đăng và trả lời bình luận trong chương.", done: false },
                             { text: "API theo dõi/bỏ theo dõi người dùng.", done: false },
@@ -174,8 +176,7 @@
                             { text: "Xây dựng Trang đọc truyện.", done: false },
                             { text: "Xây dựng Trang kết quả tìm kiếm, lọc, sắp xếp.", done: false },
                             { text: "Xây dựng Trang Bảng xếp hạng.", done: false },
-                            { text: "Tạo component trang 404 Not Found và trang báo lỗi chung.", done: false },
-                            { text: "Hiển thị thông báo lỗi từ API cho người dùng một cách thân thiện.", done: false }
+                            { text: "Tạo component trang 404 Not Found và trang báo lỗi chung.", done: false }
                         ]
                     },
                     {
@@ -184,6 +185,8 @@
                         goal: "Tích hợp các tính năng tương tác vào giao diện.",
                         tasks: [
                             { text: "Tích hợp chức năng 'Lưu vào tủ truyện' (Bookmark).", done: false },
+                            { text: "Trang đọc truyện: Gọi API để ghi lại lịch sử đọc.", done: false },
+                            { text: "Trang cá nhân: Thêm tab/khu vực hiển thị Lịch sử đọc.", done: false },
                             { text: "Xây dựng khu vực đánh giá (hiển thị và gửi).", done: false },
                             { text: "Xây dựng khu vực bình luận trong chương (hiển thị, gửi, trả lời).", done: false },
                             { text: "Xây dựng Trang cá nhân hoàn chỉnh.", done: false }

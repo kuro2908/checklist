@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
-            background-color: #f8fafc; /* slate-50 */
+            background-color: #f8fafc;
+            /* slate-50 */
         }
+
         .progress-chart-container {
             position: relative;
             margin: auto;
@@ -21,27 +25,38 @@
             width: 100%;
             max-width: 150px;
         }
-        .task-checkbox:checked + .task-text {
+
+        .task-checkbox:checked+.task-text {
             text-decoration: line-through;
-            color: #64748b; /* slate-500 */
+            color: #64748b;
+            /* slate-500 */
         }
-        .phase-header, .frontend-task-header {
+
+        .phase-header,
+        .frontend-task-header {
             cursor: pointer;
             transition: background-color 0.2s;
         }
-        .phase-header:hover, .frontend-task-header:hover {
-            background-color: #f1f5f9; /* slate-100 */
+
+        .phase-header:hover,
+        .frontend-task-header:hover {
+            background-color: #f1f5f9;
+            /* slate-100 */
         }
+
         .rotate-180 {
             transform: rotate(180deg);
         }
-        .status-badge, .status-select {
+
+        .status-badge,
+        .status-select {
             font-size: 0.875rem;
             padding: 0.25rem 0.5rem;
             border-radius: 9999px;
             font-weight: 500;
             white-space: nowrap;
         }
+
         .status-select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -55,11 +70,27 @@
             cursor: pointer;
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
         }
-        .status-not-started { background-color: #f1f5f9; color: #475569; }
-        .status-in-progress { background-color: #fef9c3; color: #a16207; }
-        .status-completed { background-color: #dcfce7; color: #15803d; }
-        .status-blocked { background-color: #fee2e2; color: #b91c1c; }
-        
+
+        .status-not-started {
+            background-color: #f1f5f9;
+            color: #475569;
+        }
+
+        .status-in-progress {
+            background-color: #fef9c3;
+            color: #a16207;
+        }
+
+        .status-completed {
+            background-color: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-blocked {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
         .subtask-list {
             padding-left: 1.5rem;
             border-left: 2px solid #e2e8f0;
@@ -67,17 +98,18 @@
         }
     </style>
 </head>
+
 <body class="text-slate-800">
 
     <div class="container mx-auto p-4 md:p-8 max-w-3xl">
-        
+
         <header class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Lộ trình phát triển dự án Web Truyện</h1>
             <p class="text-slate-600 mt-2">Dashboard theo dõi tiến độ và các giai đoạn phát triển của dự án.</p>
         </header>
 
         <main class="space-y-8">
-            
+
             <div class="bg-white p-6 rounded-xl shadow-md">
                 <h2 class="text-xl font-bold text-center mb-4">Tiến độ Backend - Minh</h2>
                 <div class="flex items-center gap-4">
@@ -89,10 +121,11 @@
                         <p class="text-slate-500" id="backend-tasks-summary">0/0 công việc hoàn thành</p>
                     </div>
                 </div>
-                 <details class="mt-4">
-                    <summary class="cursor-pointer text-sm font-medium text-slate-600 hover:text-slate-900">Xem chi tiết các giai đoạn</summary>
+                <details class="mt-4">
+                    <summary class="cursor-pointer text-sm font-medium text-slate-600 hover:text-slate-900">Xem chi tiết
+                        các giai đoạn</summary>
                     <div class="mt-4 space-y-4" id="phases-container">
-                        </div>
+                    </div>
                 </details>
             </div>
 
@@ -110,43 +143,79 @@
             // =================================================================
             const backendData = {
                 phases: [
-                    { id: 1, title: "Giai đoạn 1: Nền tảng & Xác thực", goal: "Xây dựng cấu trúc, DB, API xác thực.", tasks: [ { text: "Tạo cấu trúc thư mục server và client.", done: true }, { text: "Cài đặt Express, Sequelize, mysql2, dotenv, cors.", done: true }, { text: "Thiết kế và tạo Database MySQL hoàn chỉnh.", done: true }, { text: "Hoàn thành file kết nối server/config/database.js.", done: true }, { text: "Tạo các file model của Sequelize.", done: true }, { text: "Định nghĩa các mối quan hệ (associations).", done: true }, { text: "Backend: API đăng ký & đăng nhập (JWT).", done: true }, { text: "Backend: API đăng nhập bằng Google.", done: true }, { text: "Frontend: Cài đặt và cấu hình cơ bản.", done: true } ] },
-                    { id: 2, title: "Giai đoạn 2: Mở rộng Database & Xử lý lỗi", goal: "Hoàn thiện cấu trúc dữ liệu và xử lý lỗi.", tasks: [ { text: "DB: Thêm các cột/bảng cần thiết (views, follows...).", done: true }, { text: "Model: Cập nhật model và association tương ứng.", done: true }, { text: "Backend: Xây dựng middleware xử lý lỗi tập trung.", done: true } ] },
-                    { id: 3, title: "Giai đoạn 3: API Backend - Chức năng cơ bản", goal: "Xây dựng các API CRUD chính cho truyện.", tasks: [ { text: "API lấy danh sách truyện (phân trang, lọc, sắp xếp).", done: true }, { text: "API lấy thông tin chi tiết một truyện.", done: true }, { text: "API lấy danh sách và nội dung chương.", done: true }, { text: "API tìm kiếm và tăng lượt xem truyện.", done: true }, { text: "API cho Bảng xếp hạng.", done: true } ] },
-                    { id: 4, title: "Giai đoạn 4: API Backend - Tương tác", goal: "Xây dựng các API cho tính năng xã hội.", tasks: [ { text: "API Bookmark, Lịch sử đọc.", done: true }, { text: "API Đánh giá/xếp hạng truyện.", done: true }, { text: "API Bình luận (chương & profile).", done: true }, { text: "API Theo dõi người dùng.", done: true }, { text: "API lấy dữ liệu trang cá nhân.", done: true } ] },
-                    { id: 5, title: "Giai đoạn 5: API Backend - CMS", goal: "Xây dựng API cho tác giả và quản trị viên.", tasks: [ { text: "API đăng/cập nhật chương (tích hợp Google Doc).", done: false }, { text: "API upload ảnh bìa lên Cloudinary.", done: false }, { text: "API duyệt/từ chối truyện cho Admin.", done: false }, { text: "API Bảo mật: Hoàn thiện middleware kiểm tra vai trò.", done: false } ] },
-                    { id: 6, title: "Giai đoạn 6: Hoàn thiện & Tương lai", goal: "Các tính năng cuối cùng và nâng cao.", tasks: [ { text: "Chức năng Quên mật khẩu.", done: false }, { text: "Hệ thống thông báo chương mới.", done: false }, { text: "Thử nghiệm Three.js cho giá sách 3D.", done: false } ] }
+                    { id: 1, title: "Giai đoạn 1: Nền tảng & Xác thực", goal: "Xây dựng cấu trúc, DB, API xác thực.", tasks: [{ text: "Tạo cấu trúc thư mục server và client.", done: true }, { text: "Cài đặt Express, Sequelize, mysql2, dotenv, cors.", done: true }, { text: "Thiết kế và tạo Database MySQL hoàn chỉnh.", done: true }, { text: "Hoàn thành file kết nối server/config/database.js.", done: true }, { text: "Tạo các file model của Sequelize.", done: true }, { text: "Định nghĩa các mối quan hệ (associations).", done: true }, { text: "Backend: API đăng ký & đăng nhập (JWT).", done: true }, { text: "Backend: API đăng nhập bằng Google.", done: true }, { text: "Frontend: Cài đặt và cấu hình cơ bản.", done: true }] },
+                    { id: 2, title: "Giai đoạn 2: Mở rộng Database & Xử lý lỗi", goal: "Hoàn thiện cấu trúc dữ liệu và xử lý lỗi.", tasks: [{ text: "DB: Thêm các cột/bảng cần thiết (views, follows...).", done: true }, { text: "Model: Cập nhật model và association tương ứng.", done: true }, { text: "Backend: Xây dựng middleware xử lý lỗi tập trung.", done: true }] },
+                    { id: 3, title: "Giai đoạn 3: API Backend - Chức năng cơ bản", goal: "Xây dựng các API CRUD chính cho truyện.", tasks: [{ text: "API lấy danh sách truyện (phân trang, lọc, sắp xếp).", done: true }, { text: "API lấy thông tin chi tiết một truyện.", done: true }, { text: "API lấy danh sách và nội dung chương.", done: true }, { text: "API tìm kiếm và tăng lượt xem truyện.", done: true }, { text: "API cho Bảng xếp hạng.", done: true }] },
+                    { id: 4, title: "Giai đoạn 4: API Backend - Tương tác", goal: "Xây dựng các API cho tính năng xã hội.", tasks: [{ text: "API Bookmark, Lịch sử đọc.", done: true }, { text: "API Đánh giá/xếp hạng truyện.", done: true }, { text: "API Bình luận (chương & profile).", done: true }, { text: "API Theo dõi người dùng.", done: true }, { text: "API lấy dữ liệu trang cá nhân.", done: true }] },
+                    { id: 5, title: "Giai đoạn 5: API Backend - CMS", goal: "Xây dựng API cho tác giả và quản trị viên.", tasks: [{ text: "API đăng/cập nhật chương (tích hợp Google Doc).", done: false }, { text: "API upload ảnh bìa lên Cloudinary.", done: false }, { text: "API duyệt/từ chối truyện cho Admin.", done: false }, { text: "API Bảo mật: Hoàn thiện middleware kiểm tra vai trò.", done: false }] },
+                    { id: 6, title: "Giai đoạn 6: Hoàn thiện & Tương lai", goal: "Các tính năng cuối cùng và nâng cao.", tasks: [{ text: "Chức năng Quên mật khẩu.", done: false }, { text: "Hệ thống thông báo chương mới.", done: false }, { text: "Thử nghiệm Three.js cho giá sách 3D.", done: false }] }
                 ]
             };
 
             const frontendData = {
+                minh: {
+                    name: "Minh", color: "sky", tasks: [
+                        { title: "Hệ thống Thông báo", subtasks: [{ text: "Component: Chuông thông báo trên Header", status: 'not-started' }, { text: "Component: Trang xem danh sách tất cả thông báo", status: 'not-started' }] },
+                        { title: "Form Đăng/Sửa Truyện", subtasks: [{ text: "Component: Các trường nhập liệu (tên, mô tả...)", status: 'not-started' }, { text: "Component: Lựa chọn thể loại", status: 'not-started' }, { text: "Component: Upload ảnh bìa (tích hợp Cloudinary)", status: 'not-started' }] },
+                        { title: "Trang Chi tiết truyện", subtasks: [{ text: "Component: Hiển thị thông tin chính (ảnh bìa, mô tả, tác giả...)", status: 'not-started' }, { text: "Component: Hiển thị chỉ số (view, bookmark, rating)", status: 'not-started' }, { text: "Component: Danh sách chương", status: 'not-started' }] },
+                        { title: "Quản lý Chương", subtasks: [{ text: "Component: Danh sách chương của một truyện", status: 'not-started' }, { text: "Component: Form đăng/sửa chương", status: 'not-started' }, { text: "Tích hợp Rich Text Editor (Tiptap) vào form", status: 'not-started' }] },
+                        { title: "Trang Đọc truyện", subtasks: [{ text: "Component: Hiển thị nội dung chương", status: 'not-started' }, { text: "Component: Điều hướng chương trước/sau", status: 'not-started' }, { text: "Component: Menu tùy chỉnh giao diện đọc (cỡ chữ, nền)", status: 'not-started' }] }
+                    ]
+                },
                 khoi: {
                     name: "Khôi", color: "emerald", tasks: [
-                        { title: "Trang chủ (/)", subtasks: [ { text: "Component: Banner/Slider truyện nổi bật", status: 'not-started' }, { text: "Component: Danh sách truyện mới cập nhật", status: 'not-started' }, { text: "Component: Danh sách truyện xem nhiều", status: 'not-started' }, { text: "Component: Bảng xếp hạng thu nhỏ", status: 'not-started' } ] },
-                        { title: "Trang Chi tiết truyện", subtasks: [ { text: "Component: Hiển thị thông tin chính (ảnh bìa, mô tả, tác giả...)", status: 'not-started' }, { text: "Component: Hiển thị chỉ số (view, bookmark, rating)", status: 'not-started' }, { text: "Component: Danh sách chương", status: 'not-started' } ] },
-                        { title: "Trang Đọc truyện", subtasks: [ { text: "Component: Hiển thị nội dung chương", status: 'not-started' }, { text: "Component: Điều hướng chương trước/sau", status: 'not-started' }, { text: "Component: Menu tùy chỉnh giao diện đọc (cỡ chữ, nền)", status: 'not-started' } ] },
-                        { title: "Trang Tìm kiếm & Lọc", subtasks: [ { text: "Component: Thanh tìm kiếm", status: 'not-started' }, { text: "Component: Các bộ lọc (thể loại, trạng thái)", status: 'not-started' }, { text: "Component: Các tùy chọn sắp xếp", status: 'not-started' }, { text: "Component: Lưới hiển thị kết quả truyện", status: 'not-started' } ] },
-                        { title: "Trang Bảng xếp hạng", subtasks: [ { text: "Component: Tabs chuyển đổi (Top View, Top Rating...)", status: 'not-started' }, { text: "Component: Danh sách truyện xếp hạng", status: 'not-started' } ] },
-                        { title: "Component chung", subtasks: [ { text: "Component: Header (Thanh điều hướng chính)", status: 'not-started' }, { text: "Component: Footer (Chân trang)", status: 'not-started' }, { text: "Component: StoryCard (Hiển thị truyện trong danh sách)", status: 'not-started' }, { text: "Component: Pagination (Phân trang)", status: 'not-started' } ] }
+                        { title: "Trang chủ (/)", subtasks: [{ text: "Component: Banner/Slider truyện nổi bật", status: 'not-started' }, { text: "Component: Danh sách truyện mới cập nhật", status: 'not-started' }, { text: "Component: Danh sách truyện xem nhiều", status: 'not-started' }, { text: "Component: Bảng xếp hạng thu nhỏ", status: 'not-started' }] },
+                        
+                        { title: "Trang Tìm kiếm & Lọc", subtasks: [{ text: "Component: Thanh tìm kiếm", status: 'not-started' }, { text: "Component: Các bộ lọc (thể loại, trạng thái)", status: 'not-started' }, { text: "Component: Các tùy chọn sắp xếp", status: 'not-started' }, { text: "Component: Lưới hiển thị kết quả truyện", status: 'not-started' }] },
+                        { title: "Trang Bảng xếp hạng", subtasks: [{ text: "Component: Tabs chuyển đổi (Top View, Top Rating...)", status: 'not-started' }, { text: "Component: Danh sách truyện xếp hạng", status: 'not-started' }] },
+                        {
+                            title: "Trang 404 Not Found",
+                            subtasks: [
+                                { text: "Component: Thiết kế và hiển thị trang 404", status: 'not-started' },
+                                { text: "Logic: Cấu hình router để bắt các route không tồn tại", status: 'not-started' }
+                            ]
+                        }
                     ]
                 },
                 hoang: {
                     name: "Hoàng", color: "amber", tasks: [
-                        { title: "Đăng nhập / Đăng ký", subtasks: [ { text: "Component: Form đăng nhập (email/pass)", status: 'not-started' }, { text: "Component: Form đăng ký", status: 'not-started' }, { text: "Component: Nút đăng nhập bằng Google", status: 'not-started' } ] },
-                        { title: "Trang Cá nhân", subtasks: [ { text: "Component: Thông tin người dùng (avatar, username)", status: 'not-started' }, { text: "Component: Các chỉ số thống kê", status: 'not-started' }, { text: "Component: Tabs (Truyện đã đăng, Tủ truyện, Lịch sử đọc...)", status: 'not-started' }, { text: "Component: Danh sách người theo dõi/đang theo dõi", status: 'not-started' } ] },
-                        { title: "Hệ thống Đánh giá", subtasks: [ { text: "Component: Hiển thị điểm sao trung bình", status: 'not-started' }, { text: "Component: Form gửi đánh giá (chấm sao & viết review)", status: 'not-started' } ] },
-                        { title: "Hệ thống Bình luận", subtasks: [ { text: "Component: Danh sách bình luận (hỗ trợ trả lời lồng nhau)", status: 'not-started' }, { text: "Component: Form gửi bình luận/trả lời", status: 'not-started' } ] },
-                        { title: "Các Component tương tác", subtasks: [ { text: "Component: Nút Bookmark (Thêm/xóa khỏi tủ truyện)", status: 'not-started' }, { text: "Component: Nút Theo dõi/Bỏ theo dõi", status: 'not-started' } ] },
-                        { title: "Hệ thống Thông báo", subtasks: [ { text: "Component: Chuông thông báo trên Header", status: 'not-started' }, { text: "Component: Trang xem danh sách tất cả thông báo", status: 'not-started' } ] }
+                        { title: "Đăng nhập / Đăng ký", subtasks: [{ text: "Component: Form đăng nhập (email/pass)", status: 'not-started' }, { text: "Component: Form đăng ký", status: 'not-started' }, { text: "Component: Nút đăng nhập bằng Google", status: 'not-started' }] },
+                        { title: "Trang Cá nhân", subtasks: [{ text: "Component: Thông tin người dùng (avatar, username)", status: 'not-started' }, { text: "Component: Các chỉ số thống kê", status: 'not-started' }, { text: "Component: Tabs (Truyện đã đăng, Tủ truyện, Lịch sử đọc...)", status: 'not-started' }, { text: "Component: Danh sách người theo dõi/đang theo dõi", status: 'not-started' }] },
+                        { title: "Hệ thống Đánh giá", subtasks: [{ text: "Component: Hiển thị điểm sao trung bình", status: 'not-started' }, { text: "Component: Form gửi đánh giá (chấm sao & viết review)", status: 'not-started' }] },
+                        { title: "Hệ thống Bình luận", subtasks: [{ text: "Component: Danh sách bình luận (hỗ trợ trả lời lồng nhau)", status: 'not-started' }, { text: "Component: Form gửi bình luận/trả lời", status: 'not-started' }] },
+                        { title: "Các Component tương tác", subtasks: [{ text: "Component: Nút Bookmark (Thêm/xóa khỏi tủ truyện)", status: 'not-started' }, { text: "Component: Nút Theo dõi/Bỏ theo dõi", status: 'not-started' }] },
+                        {
+                            title: "Trang Quên mật khẩu",
+                            subtasks: [
+                                { text: "Component: Form nhập email để gửi link reset", status: 'not-started' },
+                                { text: "Component: Form nhập mật khẩu mới", status: 'not-started' },
+                                { text: "Logic: Gọi API gửi link và API reset mật khẩu", status: 'not-started' }
+                            ]
+                        }
                     ]
                 },
                 tung: {
                     name: "Tùng", color: "rose", tasks: [
-                        { title: "Author Dashboard", subtasks: [ { text: "Component: Thống kê tổng quan cho tác giả", status: 'not-started' }, { text: "Component: Bảng danh sách các truyện đã đăng", status: 'not-started' } ] },
-                        { title: "Form Đăng/Sửa Truyện", subtasks: [ { text: "Component: Các trường nhập liệu (tên, mô tả...)", status: 'not-started' }, { text: "Component: Lựa chọn thể loại", status: 'not-started' }, { text: "Component: Upload ảnh bìa (tích hợp Cloudinary)", status: 'not-started' } ] },
-                        { title: "Quản lý Chương", subtasks: [ { text: "Component: Danh sách chương của một truyện", status: 'not-started' }, { text: "Component: Form đăng/sửa chương", status: 'not-started' }, { text: "Tích hợp Rich Text Editor (Tiptap) vào form", status: 'not-started' } ] },
-                        { title: "Admin Dashboard", subtasks: [ { text: "Component: Layout chính cho trang quản trị", status: 'not-started' }, { text: "Component: Các widget thống kê website", status: 'not-started' } ] },
-                        { title: "Admin: Duyệt truyện", subtasks: [ { text: "Component: Bảng danh sách truyện chờ duyệt", status: 'not-started' }, { text: "Chức năng: Xem trước nội dung truyện", status: 'not-started' }, { text: "Chức năng: Nút Duyệt/Từ chối truyện", status: 'not-started' } ] }
+                        { title: "Component chung", subtasks: [{ text: "Component: Header (Thanh điều hướng chính)", status: 'not-started' }, { text: "Component: Footer (Chân trang)", status: 'not-started' }, { text: "Component: StoryCard (Hiển thị truyện trong danh sách)", status: 'not-started' }, { text: "Component: Pagination (Phân trang)", status: 'not-started' }] },
+                        { title: "Author Dashboard", subtasks: [{ text: "Component: Thống kê tổng quan cho tác giả", status: 'not-started' }, { text: "Component: Bảng danh sách các truyện đã đăng", status: 'not-started' }] },
+                        { title: "Admin Dashboard", subtasks: [{ text: "Component: Layout chính cho trang quản trị", status: 'not-started' }, { text: "Component: Các widget thống kê website", status: 'not-started' }] },
+                        { title: "Admin: Duyệt truyện", subtasks: [{ text: "Component: Bảng danh sách truyện chờ duyệt", status: 'not-started' }, { text: "Chức năng: Xem trước nội dung truyện", status: 'not-started' }, { text: "Chức năng: Nút Duyệt/Từ chối truyện", status: 'not-started' }] },
+                        {
+                            title: "Admin: Quản lý Người dùng",
+                            subtasks: [
+                                { text: "Component: Bảng danh sách người dùng", status: 'not-started' },
+                                { text: "Chức năng: Thay đổi vai trò (role) của người dùng", status: 'not-started' },
+                                { text: "Chức năng: Khóa/Mở khóa tài khoản người dùng", status: 'not-started' }
+                            ]
+                        },
+                        {
+                            title: "Admin: Quản lý Thể loại",
+                            subtasks: [
+                                { text: "Component: Bảng danh sách thể loại", status: 'not-started' },
+                                { text: "Component: Form thêm/sửa thể loại", status: 'not-started' },
+                                { text: "Logic: Gọi API CRUD cho thể loại", status: 'not-started' }
+                            ]
+                        }
                     ]
                 }
             };
@@ -197,7 +266,7 @@
                     phaseElement.className = 'bg-white rounded-xl shadow-md overflow-hidden';
                     const completedTasks = phase.tasks.filter(t => t.done).length;
                     const totalTasks = phase.tasks.length;
-                    
+
                     phaseElement.innerHTML = `
                         <div class="phase-header p-4 border-b border-slate-200 flex justify-between items-center">
                             <div>
@@ -230,7 +299,7 @@
                     ownerDiv.className = 'bg-white p-6 rounded-xl shadow-md';
                     ownerDiv.dataset.owner = ownerKey;
 
-                    const colorClasses = { emerald: 'text-emerald-600', amber: 'text-amber-600', rose: 'text-rose-600' };
+                    const colorClasses = { sky: 'text-sky-600', rose: 'text-rose-600', amber: 'text-amber-600', emerald: 'text-emerald-600' };
                     const statusText = { 'not-started': '⚪ Chưa bắt đầu', 'in-progress': '🟡 Đang làm', 'completed': '🟢 Hoàn thành', 'blocked': '🔴 Gặp khó khăn' };
 
                     let tasksHtml = '';
@@ -321,9 +390,10 @@
                 charts.backend = createChart('backendProgressChart', ['#0284c7', '#e0f2fe'], [backendProgress.completed, backendProgress.total - backendProgress.completed]);
 
                 const frontendProgress = calculateFrontendProgress();
-                charts.khoi = createChart('khoiProgressChart', ['#10b981', '#d1fae5'], [frontendProgress.khoi.completed, frontendProgress.khoi.total - frontendProgress.khoi.completed]);
+                charts.minh = createChart('minhProgressChart', ['#0ea5e9', '#e0f2fe'], [frontendProgress.minh.completed, frontendProgress.minh.total - frontendProgress.minh.completed]);
+                charts.khoi = createChart('khoiProgressChart', ['#e11d48', '#ffe4e6'], [frontendProgress.khoi.completed, frontendProgress.khoi.total - frontendProgress.khoi.completed]);
                 charts.hoang = createChart('hoangProgressChart', ['#d97706', '#fef3c7'], [frontendProgress.hoang.completed, frontendProgress.hoang.total - frontendProgress.hoang.completed]);
-                charts.tung = createChart('tungProgressChart', ['#e11d48', '#ffe4e6'], [frontendProgress.tung.completed, frontendProgress.tung.total - frontendProgress.tung.completed]);
+                charts.tung = createChart('tungProgressChart', ['#10b981', '#d1fae5'], [frontendProgress.tung.completed, frontendProgress.tung.total - frontendProgress.tung.completed]);
             }
 
             // ---- GẮN SỰ KIỆN ---- //
@@ -351,7 +421,6 @@
                         const { owner, taskIndex, subIndex } = e.target.dataset;
                         frontendData[owner].tasks[taskIndex].subtasks[subIndex].status = e.target.value;
                         
-                        // Re-render only the affected main task
                         const mainTask = frontendData[owner].tasks[taskIndex];
                         const mainTaskStatus = calculateMainTaskStatus(mainTask.subtasks);
                         const mainTaskBadge = document.getElementById(`main-task-${owner}-${taskIndex}`);
@@ -372,4 +441,5 @@
         });
     </script>
 </body>
-</html>
+
+</ht
